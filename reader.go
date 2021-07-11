@@ -20,8 +20,9 @@ type Reader interface {
 }
 
 type paramReader struct {
-	key   string
-	value interface{}
+	asPayload bool
+	key       string
+	value     interface{}
 }
 
 func (p paramReader) Key() string {
@@ -33,7 +34,7 @@ func (p paramReader) Value() interface{} {
 }
 
 func (p paramReader) AsPayload() bool {
-	return false
+	return p.asPayload
 }
 
 type fileReader struct {
@@ -55,8 +56,16 @@ func (p fileReader) AsPayload() bool {
 
 func Param(key string, value interface{}) Reader {
 	return paramReader{
-		key:   key,
-		value: value,
+		key:       key,
+		value:     value,
+		asPayload: false,
+	}
+}
+
+func Payload(v interface{}) Reader {
+	return paramReader{
+		value:     v,
+		asPayload: true,
 	}
 }
 
