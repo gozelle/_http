@@ -1,4 +1,4 @@
-module github.com/koyeo/_http
+module github.com/gozelle/_http
 
 go 1.15
 
