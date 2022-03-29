@@ -14,24 +14,42 @@ func testUrl(uri string) string {
 }
 
 func TestNewRequest(t *testing.T) {
-	resp := Get(testUrl("/test/params"), Param("method", GET), Param("name", "tom"), Param("age", 18))
+	resp := Get(testUrl("/test/params"),
+		Param("method", GET),
+		Param("name", "tom"),
+		Param("age", 18),
+	)
 	require.NoError(t, resp.Error())
 	t.Log(resp.String())
 	
-	resp = Delete(testUrl("/test/params"), Param("method", DELETE), Param("name", "tom"), Param("age", 18))
+	resp = Delete(testUrl("/test/params"),
+		Param("method", DELETE),
+		Param("name", "tom"),
+		Param("age", 18),
+	)
 	require.NoError(t, resp.Error())
 	t.Log(resp.String())
 	
-	resp = Post(testUrl("/test/json"), Param("name", "tom"), Param("age", 18))
+	resp = Post(testUrl("/test/json"),
+		Param("name", "tom"),
+		Param("age", 18),
+	)
 	require.NoError(t, resp.Error())
 	t.Log(resp.String())
 	
-	req := NewRequest(POST, testUrl("/test/form-urlencoded"), Param("name", "tom"), Param("age", 18)).SetContentType(X_WWW_FORM_URLENCODED)
+	req := NewRequest(POST, testUrl("/test/form-urlencoded"),
+		Param("name", "tom"),
+		Param("age", 18),
+	).SetContentType(CONTENT_TYPE_X_WWW_FORM_URLENCODED)
 	resp = req.Exec()
 	require.NoError(t, resp.Error())
 	t.Log(resp.String())
 	
-	req = NewRequest(POST, testUrl("/test/form-data"), Param("name", "tom"), Param("age", 18), File("file", "./test/test.txt")).SetContentType(FORM_DATA)
+	req = NewRequest(POST, testUrl("/test/form-data"),
+		Param("name", "tom"),
+		Param("age", 18),
+		File("file", "./test/test.txt"),
+	).SetContentType(CONTENT_TYPE_FORM_DATA)
 	resp = req.Exec()
 	require.NoError(t, resp.Error())
 	t.Log(strings.TrimSpace(resp.String()))

@@ -2,7 +2,7 @@ package _http
 
 import (
 	"fmt"
-	"github.com/koyeo/_json"
+	"github.com/gozelle/_json"
 	"net/http"
 	"sync"
 	"time"

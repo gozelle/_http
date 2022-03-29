@@ -171,7 +171,7 @@ func (p *Request) Send(method Method, url string, params ...Reader) (response *R
 	urlBuilder.WriteString(p.host)
 	urlBuilder.WriteString(url)
 	
-	contentType := JSON
+	contentType := CONTENT_TYPE_JSON
 	t := p.Header().Get(CONTENT_TYPE)
 	if t == "" {
 		p.SetContentType(contentType)
@@ -245,11 +245,11 @@ func (p *Request) Send(method Method, url string, params ...Reader) (response *R
 
 func (p *Request) prepareBody(contentType string, params *readers) io.Reader {
 	switch contentType {
-	case X_WWW_FORM_URLENCODED:
+	case CONTENT_TYPE_X_WWW_FORM_URLENCODED:
 		return params.UrlEncoded()
-	case JSON, JSON_UTF8:
+	case CONTENT_TYPE_JSON, CONTENT_TYPE_JSON_UTF8:
 		return params.Json()
-	case FORM_DATA:
+	case CONTENT_TYPE_FORM_DATA:
 		return params.Multipart(p)
 	}
 	panic(fmt.Errorf("content-type '%s' unsupport prepare body", contentType))

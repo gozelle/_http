@@ -2,7 +2,7 @@ package _http
 
 import (
 	"fmt"
-	"github.com/koyeo/_rand"
+	"github.com/gozelle/_rand"
 	"net/http"
 	"sync"
 	"time"
